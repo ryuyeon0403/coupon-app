@@ -8,6 +8,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --text-color: 0, 0, 0;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -45,6 +46,7 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    --text-color: 255, 255, 255;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -104,4 +106,9 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.coupon {
+  color: rgb(var(--text-color));
+  border-color: rgb(var(--text-color));
 }

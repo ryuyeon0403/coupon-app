@@ -10,6 +10,7 @@ import {
   Theme,
   Typography,
   inputClasses,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -30,6 +31,7 @@ const boxStyle: SxProps<Theme> = {
 
 function MemberTable({ members, coupons }: Props) {
   const [couponList, setCouponList] = useState<Coupon[]>(coupons);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
     const channel = supabase
@@ -78,9 +80,9 @@ function MemberTable({ members, coupons }: Props) {
         커피 머신
       </Typography>
       <Stack direction={"row"} alignItems={"center"}>
-        <Box sx={boxStyle} />
+        <Box sx={boxStyle} className="coupon" />
         {members.map((member) => (
-          <Box sx={boxStyle} key={member.id}>
+          <Box sx={boxStyle} key={member.id} className="coupon">
             {member.name}
           </Box>
         ))}
@@ -88,7 +90,9 @@ function MemberTable({ members, coupons }: Props) {
       <Stack alignItems={"center"}>
         {members.map((member) => (
           <Stack direction={"row"} key={member.id}>
-            <Box sx={boxStyle}>{member.name}</Box>
+            <Box sx={boxStyle} className="coupon">
+              {member.name}
+            </Box>
             {members.map((givMember) => {
               const findObj = couponList.find(
                 (coupon) =>
@@ -96,14 +100,22 @@ function MemberTable({ members, coupons }: Props) {
                   coupon.coupon_member_id === givMember.id
               );
               return (
-                <Box sx={boxStyle} key={`giv-${givMember.id}`} pl={1}>
+                <Box
+                  sx={boxStyle}
+                  className="coupon"
+                  key={`giv-${givMember.id}`}
+                  pl={1}
+                >
                   <TextField
                     value={findObj?.coupon_cnt || 0}
                     type="number"
                     variant="standard"
                     sx={{
-                      [`& .${inputClasses.root}`]: { color: "white" },
+                      ...(prefersDarkMode && {
+                        [`& .${inputClasses.root}`]: { color: "white" },
+                      }),
                     }}
+                    className="coupon"
                     onChange={(e) =>
                       handleChange(findObj?.seq || 0, e.target.value)
                     }
