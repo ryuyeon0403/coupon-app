@@ -2,7 +2,11 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { supabase } from "@/utils/supabase";
 import MemberTable from "@/components/MemberTable";
-import { Member } from "@/interface/Member";
+import { Coupon, Member } from "@/interface/Member";
+
+export const metadata = {
+  title: "coupon-app",
+};
 
 export default async function Home() {
   const { data: members } = await supabase.from("CouponMember").select("*");
@@ -10,8 +14,10 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.center}>
-        {JSON.stringify(coupons)}
-        <MemberTable members={members as Member[]} />
+        <MemberTable
+          members={members as Member[]}
+          coupons={coupons as Coupon[]}
+        />
       </div>
     </main>
   );
