@@ -8,6 +8,7 @@ import {
   SxProps,
   TextField,
   Theme,
+  Typography,
   inputClasses,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -73,6 +74,9 @@ function MemberTable({ members, coupons }: Props) {
 
   return (
     <Stack alignItems={"flex-start"}>
+      <Typography variant="h2" pb={3}>
+        커피 머신
+      </Typography>
       <Stack direction={"row"} alignItems={"center"}>
         <Box sx={boxStyle} />
         {members.map((member) => (
